@@ -1895,6 +1895,7 @@ class HookedTransformer(HookedRootModule):
                 state_dict[f"blocks.{layer}.attn._b_V"] = torch.zeros_like(
                     state_dict[f"blocks.{layer}.attn._b_V"]
                 )
+        # asd
         return state_dict
 
     def refactor_factored_attn_matrices(self, state_dict: Dict[str, torch.Tensor]):

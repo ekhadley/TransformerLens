@@ -1883,9 +1883,10 @@ class HookedTransformer(HookedRootModule):
                 )
             # [head_index, d_head, d_model]
             W_O = state_dict[f"blocks.{layer}.attn.W_O"]
+            DEVICE = W_O.device
             # [d_model]
             b_O_original = state_dict[f"blocks.{layer}.attn.b_O"]
-            folded_b_O = b_O_original + (b_V[:, :, None] * W_O).sum([0, 1])
+            folded_b_O = b_O_original.to(DEVICE) + (b_V[:, :, None].to(DEVICE) * W_O).sum([0, 1])
 
             state_dict[f"blocks.{layer}.attn.b_O"] = folded_b_O
             if self.cfg.n_key_value_heads is None:

@@ -2245,7 +2245,7 @@ class HookedTransformer(HookedRootModule):
             # that changes in the future.
             self.eval()
             sampled_tokens_list: List[torch.Tensor] = []
-            for index in tqdm.tqdm(range(max_new_tokens), disable=not verbose):
+            for index in tqdm.tqdm(range(max_new_tokens), disable=not verbose, ascii=" >="):
                 pos_offset = self.get_pos_offset(past_kv_cache, batch_size)
 
                 tokens = torch.zeros((embeds.size(0), embeds.size(1))).to(torch.int)
